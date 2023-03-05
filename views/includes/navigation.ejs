@@ -19,16 +19,22 @@
           >Orders</a
         >
       </li>
-      <!-- <li class="main-header__item">
-        <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">
+      <% if (isAuthenticated) { %>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/add-product' ? 'active' : '' %>"
+          href="/admin/add-product">
           Add Product
         </a>
       </li>
       <li class="main-header__item">
-        <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">
+        <a
+          class="<%= path === '/admin/products' ? 'active' : '' %>"
+          href="/admin/products">
           Admin Products
         </a>
-      </li> -->
+      </li>
+      <% } %>
     </ul>
     <ul class="main-header__item-list">
       <li class="main-header__item">
@@ -61,16 +67,14 @@
     <li class="mobile-nav__item">
       <a
         class="<%= path === '/admin/add-product' ? 'active' : '' %>"
-        href="/admin/add-product"
-      >
+        href="/admin/add-product">
         Add Product
       </a>
     </li>
     <li class="mobile-nav__item">
       <a
         class="<%= path === '/admin/products' ? 'active' : '' %>"
-        href="/admin/products"
-      >
+        href="/admin/products">
         Admin Products
       </a>
     </li>
