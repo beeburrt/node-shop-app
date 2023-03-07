@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 
-exports.getAddProduct = (req, res) => {
+exports.getAddProduct = (req, res, next) => {
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
   }
@@ -11,7 +11,7 @@ exports.getAddProduct = (req, res) => {
   });
 };
 
-exports.postAddProduct = (req, res) => {
+exports.postAddProduct = (req, res, next) => {
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
@@ -35,7 +35,7 @@ exports.postAddProduct = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.getEditProduct = (req, res) => {
+exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
     return res.redirect("/");
@@ -56,7 +56,7 @@ exports.getEditProduct = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.postEditProduct = (req, res) => {
+exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
   const newTitle = req.body.title;
   const newPrice = req.body.price;
@@ -78,7 +78,7 @@ exports.postEditProduct = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.getProducts = (req, res) => {
+exports.getProducts = (req, res, next) => {
   Product.find()
     // .populate("userId")
     .then((products) => {
@@ -91,7 +91,7 @@ exports.getProducts = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.postDeleteProduct = (req, res) => {
+exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   Product.findByIdAndRemove(prodId)
     .then(() => {

@@ -2,30 +2,45 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
 
-exports.getLogin = (req, res) => {
+exports.getLogin = (req, res, next) => {
+  let msg = req.flash("error");
+  if (msg.length > 0) {
+    msg = msg[0];
+  } else {
+    msg = null;
+  }
   res.render("auth/login", {
     path: "/login",
     pageTitle: "Login",
+    errorMsg: msg,
   });
 };
 
-exports.getSignup = (req, res) => {
+exports.getSignup = (req, res, next) => {
+  let msg = req.flash("error");
+  if (msg.length > 0) {
+    msg = msg[0];
+  } else {
+    msg = null;
+  }
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Sign Up",
+    errorMsg: msg,
   });
 };
 
-exports.postLogin = (req, res) => {
+exports.postLogin = (req, res, next) => {
   const email = req.body.email;
-  const passwd = req.body.password;
+  const password = req.body.password;
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
+        req.flash("error", "Invalid email or password");
         return res.redirect("/login");
       }
       bcrypt
-        .compare(passwd, user.password)
+        .compare(password, user.password)
         .then((match) => {
           if (match) {
             req.session.isLoggedIn = true;
@@ -45,7 +60,7 @@ exports.postLogin = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.postSignup = (req, res) => {
+exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
@@ -53,6 +68,7 @@ exports.postSignup = (req, res) => {
   User.findOne({ email: email })
     .then((user) => {
       if (user) {
+        req.flash("error", "Email already in use!");
         return res.redirect("/login");
       }
       return bcrypt
@@ -72,7 +88,7 @@ exports.postSignup = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.postLogout = (req, res) => {
+exports.postLogout = (req, res, next) => {
   req.session.destroy((err) => {
     console.log(err);
     res.redirect("/");

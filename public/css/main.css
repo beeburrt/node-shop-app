@@ -247,10 +247,41 @@ ul {
   color: white;
 }
 
+.user-msg,
+.error-msg {
+  margin: auto;
+  width: 30rem;
+  font-weight: 900;
+  border-radius: 3px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.user-msg {
+  border: 2px solid #1c47d3;
+  background: #beccf8;
+  color: #1c47d3;
+}
+
+.error-msg {
+  border-color: #990623;
+  background: #f7b3b3;
+  color: #990623;
+}
+
 @media (min-width: 768px) {
   .main-header__nav {
     display: flex;
   }
+
+  /* .user-msg {
+    margin: auto;
+    width: 30rem;
+    border: 2px solid #4771fa;
+    border-radius: 3px;
+    padding: 1rem;
+    background: #b9c9ff;
+  } */
 
   #side-menu-toggle {
     display: none;
