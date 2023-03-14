@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+  </head>
+
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+      <% if (errorMsg) { %>
+      <h3 class="user-msg error-msg"><%= errorMsg %></h3>
+      <% } %>
+      <form class="login-form" action="/login" method="POST">
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" />
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button class="btn" type="submit">Reset Password</button>
+      </form>
+    </main>
+  </body>
+</html>

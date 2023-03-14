@@ -111,3 +111,17 @@ exports.postLogout = (req, res, next) => {
     res.redirect("/");
   });
 };
+
+exports.getReset = (req, res, next) => {
+  let msg = req.flash("error");
+  if (msg.length > 0) {
+    msg = msg[0];
+  } else {
+    msg = null;
+  }
+  res.render("/auth/reset", {
+    path: "/reset",
+    pageTitle: "Reset Password",
+    errorMsg: msg
+  });
+}
